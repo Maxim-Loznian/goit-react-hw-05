@@ -1,0 +1,42 @@
+.main {
+  padding: 20px;
+}
+
+.searchInput {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.searchButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.searchButton:hover {
+  background-color: #0056b3;
+}
+
+.movieList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.movieItem {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.poster {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}

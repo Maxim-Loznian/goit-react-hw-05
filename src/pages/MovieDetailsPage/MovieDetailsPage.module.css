@@ -1,0 +1,44 @@
+.main {
+  padding: 20px;
+}
+
+.goBack {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.goBack:hover {
+  background-color: #0056b3;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.poster {
+  width: 200px;
+  border-radius: 8px;
+}
+
+.overview {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.nav {
+  margin: 20px 0;
+}
+
+.link {
+  margin-right: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
