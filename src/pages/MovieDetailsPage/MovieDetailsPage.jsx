@@ -1,4 +1,3 @@
-// MovieDetailsPage.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, Link, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../../api/tmdbApi';
@@ -9,7 +8,7 @@ const MovieDetailsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [movie, setMovie] = useState(null);
-  const prevLocationRef = useRef(location.state?.from || '/');
+  const backLinkLocationRef = useRef(location.state?.from ?? '/'); // Зберігає попередню локацію
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -23,15 +22,13 @@ const MovieDetailsPage = () => {
     getMovieDetails();
   }, [movieId]);
 
-  const handleGoBack = () => {
-    navigate(prevLocationRef.current);
-  };
-
   return (
     <main className={styles.main}>
       {movie ? (
         <>
-          <button onClick={handleGoBack} className={styles.goBack}>Go Back</button>
+          <button onClick={() => navigate(backLinkLocationRef.current)} className={styles.goBack}>
+            Go Back
+          </button>
           <h1 className={styles.title}>{movie.title}</h1>
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

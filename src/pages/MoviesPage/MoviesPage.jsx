@@ -1,7 +1,6 @@
-// MoviesPage.jsx
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import MovieList from '../../components/MovieList/MovieList';
+import MovieList from '../../components/MovieList/MovieList'; // Правильний шлях до MovieList
 import { searchMovies } from '../../api/tmdbApi';
 import styles from './MoviesPage.module.css';
 
@@ -12,6 +11,8 @@ const MoviesPage = () => {
 
   const handleSearch = async (event) => {
     event.preventDefault(); // Запобігти перезавантаженню сторінки
+    setSearchParams({ query }); // Оновити параметри запиту URL
+    
     if (query) {
       try {
         const response = await searchMovies(query);
@@ -19,6 +20,8 @@ const MoviesPage = () => {
       } catch (error) {
         console.error('Error searching movies:', error);
       }
+    } else {
+      setMovies([]); // Очистити список фільмів, якщо немає запиту
     }
   };
 
