@@ -1,17 +1,21 @@
+// MovieList.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'; // Додано для навігації
 import styles from './MovieList.module.css';
 
 const MovieList = ({ movies }) => (
   <ul className={styles.movieList}>
     {movies.map(movie => (
       <li key={movie.id} className={styles.movieItem}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className={styles.movieImage}
-        />
-        <h3 className={styles.movieTitle}>{movie.title}</h3>
+        <Link to={`/movies/${movie.id}`}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className={styles.movieImage}
+          />
+          <h3 className={styles.movieTitle}>{movie.title}</h3>
+        </Link>
       </li>
     ))}
   </ul>

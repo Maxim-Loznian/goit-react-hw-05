@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link, Outlet } from 'react-router-dom';
+// MovieDetailsPage.jsx
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams, useNavigate, Link, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../../api/tmdbApi';
 import styles from './MovieDetailsPage.module.css';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [movie, setMovie] = useState(null);
+  const prevLocationRef = useRef(location.state?.from || '/');
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -20,11 +23,15 @@ const MovieDetailsPage = () => {
     getMovieDetails();
   }, [movieId]);
 
+  const handleGoBack = () => {
+    navigate(prevLocationRef.current);
+  };
+
   return (
     <main className={styles.main}>
       {movie ? (
         <>
-          <button onClick={() => navigate(-1)} className={styles.goBack}>Go Back</button>
+          <button onClick={handleGoBack} className={styles.goBack}>Go Back</button>
           <h1 className={styles.title}>{movie.title}</h1>
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
