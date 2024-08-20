@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import MovieList from '../../components/MovieList/MovieList'; // Правильний шлях до MovieList
+import React, { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import MovieList from '../../components/MovieList/MovieList';
 import { searchMovies } from '../../api/tmdbApi';
 import styles from './MoviesPage.module.css';
 
@@ -8,9 +8,35 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState(searchParams.get('query') || '');
+  const location = useLocation(); // Отримання локації
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const queryParam = searchParams.get('query');
+      if (queryParam) {
+        try {
+          const response = await searchMovies(queryParam);
+          setMovies(response.data.results);
+        } catch (error) {
+          console.error('Error searching movies:', error);
+        }
+      } else {
+        setMovies([]); // Очистити список фільмів, якщо немає запиту
+      }
+    };
+
+    fetchMovies();
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (location.state?.query) {
+      setQuery(location.state.query);
+      setSearchParams({ query: location.state.query });
+    }
+  }, [location.state, setSearchParams]);
 
   const handleSearch = async (event) => {
-    event.preventDefault(); // Запобігти перезавантаженню сторінки
+    event.preventDefault();
     setSearchParams({ query }); // Оновити параметри запиту URL
     
     if (query) {
@@ -21,7 +47,7 @@ const MoviesPage = () => {
         console.error('Error searching movies:', error);
       }
     } else {
-      setMovies([]); // Очистити список фільмів, якщо немає запиту
+      setMovies([]);
     }
   };
 

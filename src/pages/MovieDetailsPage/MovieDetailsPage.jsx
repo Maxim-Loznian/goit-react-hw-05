@@ -8,7 +8,7 @@ const MovieDetailsPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [movie, setMovie] = useState(null);
-  const backLinkLocationRef = useRef(location.state?.from ?? '/'); // Зберігає попередню локацію
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -26,7 +26,10 @@ const MovieDetailsPage = () => {
     <main className={styles.main}>
       {movie ? (
         <>
-          <button onClick={() => navigate(backLinkLocationRef.current)} className={styles.goBack}>
+          <button
+            onClick={() => navigate(backLinkLocationRef.current)}
+            className={styles.goBack}
+          >
             Go Back
           </button>
           <h1 className={styles.title}>{movie.title}</h1>
